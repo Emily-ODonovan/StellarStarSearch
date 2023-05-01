@@ -27,8 +27,19 @@
     </div>
     <div id="resultDiv">
         <h1 id="starName"></h1>
-        <p id="starInfo"></p>
+        <p id="starInfo">
+            <div id="aladin-lite-div" style="width:600px;height:600px;"></div>
+        </p>
     </div>
+
+    <script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js"
+        charset="utf-8"></script>
+    <script type="text/javascript">
+        let aladin;
+        A.init.then(() => {
+            aladin = A.aladin('#aladin-lite-div', { survey: "P/DSS2/color", fov: 60, cooFrame: "galactic" });
+        });
+    </script>
 
     <script>
         var form = document.getElementById("input");

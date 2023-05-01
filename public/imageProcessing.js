@@ -26,12 +26,17 @@ async function loadFromForm() {
         drawConstallation(previewCanvas, dimensions, brightPoints, starDistance);
 
         addCircleHoverListener(previewCanvas);
+
+        //await response from firebase
+        //updateBrightPoints(response);
+        //aladin.gotoRaDec(<ra-in-degrees>, <dec-in-degrees>);
+
     };
 }
 
 
 //written with the help of chatGPT
-async function findBrightPoints(image, minDistance , previewCanvas, width, height) {
+async function findBrightPoints(image, minDistance, previewCanvas, width, height) {
 
     // get the canvas context
     previewCanvas.width = width;
@@ -142,9 +147,11 @@ function addCircleHoverListener(canvas) {
 
         for (const dot of brightPoints) {
 
-            if ((dx-dot.x) * (dx-dot.x) + (dy-dot.y) * (dy-dot.y) < dot.rXr) {
+            if ((dx - dot.x) * (dx - dot.x) + (dy - dot.y) * (dy - dot.y) < dot.rXr) {
                 starName.innerHTML = dot.name;
-                starInfo.innerHTML = dot.info;
+                // starInfo.innerHTML = dot.info;
+                //aladin.gotoRaDec(<ra-in-degrees>, <dec-in-degrees>);
+
                 return;
             }
         }
