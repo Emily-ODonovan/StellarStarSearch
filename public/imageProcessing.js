@@ -1,11 +1,11 @@
 let target;
 const brightPoints = [];
+let offsetX;
+let offsetY;
 
 async function loadFromForm() {
-    // const element = document.getElementById("test");
-    // element.innerHTML = "Hello World";
-
-    const fileIn = document.getElementById("imgUp");
+    const previewCanvas = document.getElementById("previewCanvas");
+    const fileIn = document.getElementById("imgUpload");
     const imgOut = document.getElementById("out");
     const starDistance = 10;
     brightPoints.length = 0;
@@ -16,9 +16,15 @@ async function loadFromForm() {
     imgOut.onload = function () {
         findBrightPoints(imgOut, starDistance);
         console.log(JSON.stringify(brightPoints, null, "  "));
+        //send the brightPoints array to FireBase
+
+        mutateBrightPoints(starDistance);
+
         let dimensions = [imgOut.width, imgOut.height];
         console.log(dimensions[0] + " " + dimensions[1]);
-        drawConstallation(dimensions, brightPoints, 5);
+        drawConstallation(previewCanvas, dimensions, brightPoints, starDistance);
+
+        addCircleHoverListener(previewCanvas);
     };
 }
 
@@ -102,13 +108,16 @@ async function findBrightPoints(image, minDistance) {
     // console.log(JSON.stringify(brightPoints, null, "  "));
 }
 
-function drawConstallation(dimensions, points, radius = 10) {
-    const previewCanvas = document.getElementById("previewCanvas");
+function drawConstallation(previewCanvas, dimensions, points, radius) {
     const ctx = previewCanvas.getContext("2d");
 
     // Set the canvas dimensions
     previewCanvas.width = dimensions[0];
     previewCanvas.height = dimensions[1];
+
+    //sets the offsets for the hover over function
+    offsetX = previewCanvas.offsetLeft;
+    offsetY = previewCanvas.offsetTop;
 
     //background first
     ctx.fillStyle = "#000";
@@ -123,20 +132,20 @@ function drawConstallation(dimensions, points, radius = 10) {
         const start = points[i];
         for (let j = i + 1; j < points.length; j++) {
             if (!(i === j)) {
-            const end = points[j];
+                const end = points[j];
 
-            // Calculate the distance between the two points
-            const distance = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
+                // Calculate the distance between the two points
+                const distance = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
 
-            // Only draw the line if the distance is within the maximum distance
-            if (distance <= maxLineDistanceInPx) {
-                ctx.beginPath();
-                ctx.moveTo(start.x, start.y);
-                ctx.lineTo(end.x, end.y);
-                ctx.stroke();
+                // Only draw the line if the distance is within the maximum distance
+                if (distance <= maxLineDistanceInPx) {
+                    ctx.beginPath();
+                    ctx.moveTo(start.x, start.y);
+                    ctx.lineTo(end.x, end.y);
+                    ctx.stroke();
+                }
             }
         }
-    }
 
         // Set the fill style to white
         ctx.fillStyle = '#fff';
@@ -148,4 +157,36 @@ function drawConstallation(dimensions, points, radius = 10) {
             ctx.fill();
         }
     }
+}
+
+//tool tips for the stars!
+function addCircleHoverListener(canvas) {
+    const starInfo = document.getElementById('starInfo');
+    const starName = document.getElementById('starName');
+    canvas.addEventListener('mousemove', (event) => {
+
+        const rect = canvas.getBoundingClientRect();
+        const dx = event.clientX - rect.left;
+        const dy = event.clientY - rect.top;
+
+        for (const dot of brightPoints) {
+
+            if ((dx-dot.x) * (dx-dot.x) + (dy-dot.y) * (dy-dot.y) < dot.rXr) {
+                starName.innerHTML = dot.name;
+                starInfo.innerHTML = dot.info;
+                return;
+            }
+        }
+    });
+}
+
+//mutates the bright points array to include the star distance and name
+function mutateBrightPoints(starDistance) {
+    brightPoints.forEach(point => {
+        point.x = point.x;
+        point.y = point.y;
+        point.rXr = starDistance * starDistance;
+        point.info = "We'll find out";
+        point.name = "Star";
+    });
 }
