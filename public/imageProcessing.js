@@ -29,7 +29,6 @@ async function loadFromForm() {
 
         //await response from firebase
         //updateBrightPoints(response);
-        //aladin.gotoRaDec(<ra-in-degrees>, <dec-in-degrees>);
 
     };
 }
@@ -136,8 +135,8 @@ function drawConstallation(previewCanvas, dimensions, points, radius) {
 
 //tool tips for the stars!
 function addCircleHoverListener(canvas) {
-    const starInfo = document.getElementById('aladin-lite-div');
     const starName = document.getElementById('starName');
+    const starInfo = document.getElementById('starInfo');
     canvas.addEventListener('mousemove', (event) => {
 
         const rect = canvas.getBoundingClientRect();
@@ -149,7 +148,7 @@ function addCircleHoverListener(canvas) {
             if ((dx - dot.x) * (dx - dot.x) + (dy - dot.y) * (dy - dot.y) < dot.rXr) {
                 starName.innerHTML = dot.name;
                 // starInfo.innerHTML = dot.info;
-                //aladin.gotoRaDec(<ra-in-degrees>, <dec-in-degrees>);
+                //query SIMBAD from here
 
                 return;
             }

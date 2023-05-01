@@ -2,6 +2,12 @@
     max-width: 40%;
     max-height: auto;
 }
+#input {
+    margin-left: 30%;
+    margin-right: 30%;
+    height: auto;
+    text-align: center;
+}
 #starName, #starInfo {
     width: 100%;
     height: 100%;

@@ -24,8 +24,13 @@
         <img id="out" class="previewImg">
         <canvas id="previewCanvas" class="preview" width="200" height="100"></canvas>
     </div>
+    <form onsubmit="queryDB()" id="query">
+        <input type="submit" value="Query">
+    </form>
+
     <div id="resultDiv">
         <h1 id="starName"></h1>
+        <p id="starInfo"></p>
         <div id="aladin-lite-div" style="width:600px;height:600px;"></div>
     </div>
 
@@ -39,6 +44,9 @@
     </script>
 
     <script>
+        //on Query response
+        //aladin.gotoRaDec(<ra-in-degrees>, <dec-in-degrees>);
+
         var form = document.getElementById("input");
         function handleForm(event) { event.preventDefault(); }
         form.addEventListener('submit', handleForm);
