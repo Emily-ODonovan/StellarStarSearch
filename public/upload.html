@@ -5,20 +5,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stellar Star Search</title>
-    <script defer src="convultion.js"></script>
+    <script defer src="imageProcessing.js"></script>
 </head>
 
 <body>
     <h1>Upload your image!</h1>
     <form onsubmit="loadFromForm()" id="input">
-        <label for="brightness">I'm the brightness detection slider! If not enough or too many stars show up adjust me!</label>
+        <label for="brightness">I'm the brightness detection slider! If not enough or too many stars show up adjust
+            me!</label>
         <p id="brightIndicator">Brightness: 75</p>
-        <input type="range" id="brightness" name="If not enough or too many stars show up adjust me!" default-value="75" min="50" max="150">
+        <input type="range" id="brightness" name="If not enough or too many stars show up adjust me!" default-value="75"
+            min="50" max="150">
         <input type="file" id="imgUp" accept="image/jpeg, image/png, image/jpg">
         <input type="submit" value="Upload">
     </form>
     <p id="test"></p>
-    <img id="out">
+    <div id="preview">
+        <img id="out" class="preview">
+        <img id="canvas" class="preview">
+    </div>
 
     <script>
         var form = document.getElementById("input");
