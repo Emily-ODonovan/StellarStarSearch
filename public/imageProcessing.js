@@ -9,21 +9,20 @@ async function loadFromForm() {
     const previewCanvas = document.getElementById("previewCanvas");
     const fileIn = document.getElementById("imgUpload");
     const imgOut = document.getElementById("out");
-    const starDistance = 10;
+    const starDistance = 15;
     brightPoints.length = 0;
 
     target = fileIn.files[0];
 
     imgOut.src = URL.createObjectURL(target);
     imgOut.onload = function () {
-        findBrightPoints(imgOut, starDistance, previewCanvas);
+        findBrightPoints(imgOut, starDistance, previewCanvas, this.naturalWidth, this.naturalHeight);
         console.log(JSON.stringify(brightPoints, null, "  "));
         //send the brightPoints array to FireBase
 
         mutateBrightPoints(starDistance);
 
         let dimensions = [imgOut.width, imgOut.height];
-        console.log(dimensions[0] + " " + dimensions[1]);
         drawConstallation(previewCanvas, dimensions, brightPoints, starDistance);
 
         addCircleHoverListener(previewCanvas);
@@ -32,19 +31,15 @@ async function loadFromForm() {
 
 
 //written with the help of chatGPT
-async function findBrightPoints(image, minDistance , previewCanvas) {
+async function findBrightPoints(image, minDistance , previewCanvas, width, height) {
 
-    // get the dimensions of the image
-    const width = image.width;
-    const height = image.height;
-
-    // create a canvas element and get its context
+    // get the canvas context
     previewCanvas.width = width;
     previewCanvas.height = height;
     const ctx = previewCanvas.getContext('2d');
 
     // draw the image onto the canvas
-    ctx.drawImage(image, 0, 0);
+    ctx.drawImage(image, 0, 0, image.width, image.height);
 
     // get the image data from the canvas
     const imageData = ctx.getImageData(0, 0, width, height);
@@ -57,7 +52,7 @@ async function findBrightPoints(image, minDistance , previewCanvas) {
         // get the brightness of the pixel
         const brightness = (0.2126 * data[i]) + (0.7152 * data[i + 1]) + (0.073 * data[i + 2]);
         //these are the RGB brightness weighting given to each values. They were provided from chatGPT and are based on how sensitive the human eye is to each color
-        //the blue value had to be modified to 0.073 from 0.0722 as in testing it was found that the blue value was too low and was not picking up enough stars
+        //the blue value had to be modified to 0.073 from 0.0722 as in testing it was found that the blue value was too low and was not picking up enough stars alpha is ignored
 
         // if the pixel is bright, add it to the array
         if (brightness > givenBrightness) {
@@ -81,6 +76,7 @@ async function findBrightPoints(image, minDistance , previewCanvas) {
             }
         }
     }
+
 }
 
 function drawConstallation(previewCanvas, dimensions, points, radius) {

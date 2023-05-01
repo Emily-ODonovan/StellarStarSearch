@@ -1,4 +1,4 @@
-#out, #preview {
+#out, #preview, #previewCanvas {
     max-width: 40%;
     max-height: auto;
 }
