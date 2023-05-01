@@ -10,6 +10,11 @@
 </head>
 
 <body>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
+    
     <h1>Upload your image!</h1>
     <form onsubmit="loadFromForm()" id="input">
         <p for="brightness">I'm the brightness detection slider! If not enough or too many stars show up adjust me!</p>
@@ -43,9 +48,7 @@
 
             aladin.addCatalog(A.catalogFromVizieR('V/50', 'M 45', 5, { onClick: 'showTable' }));
         });
-    </script>
 
-    <script>
         //on Query response
         //aladin.gotoRaDec(<ra-in-degrees>, <dec-in-degrees>);
 
