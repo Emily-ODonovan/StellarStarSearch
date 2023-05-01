@@ -17,7 +17,6 @@ async function loadFromForm() {
     imgOut.onload = function () {
         findBrightPoints(imgOut, starDistance, previewCanvas, this.naturalWidth, this.naturalHeight);
         console.log(JSON.stringify(brightPoints, null, "  "));
-        //send the brightPoints array to FireBase
 
         mutateBrightPoints(starDistance);
 
@@ -33,7 +32,11 @@ async function loadFromForm() {
 
     };
 }
-
+async function queryDB() {
+    //query firebase for the stars
+    //await response from firebase
+    //updateBrightPoints(response);
+}
 
 //written with the help of chatGPT
 async function findBrightPoints(image, minDistance, previewCanvas, width, height) {
