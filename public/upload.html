@@ -14,7 +14,7 @@
     <form onsubmit="loadFromForm()" id="input">
         <label for="brightness">I'm the brightness detection slider! If not enough or too many stars show up adjust
             me!</label>
-        <p id="brightIndicator">Brightness: 75</p>
+        <p id="brightIndicator">Brightness Sensitivity: 75</p>
         <input type="range" id="brightness" name="If not enough or too many stars show up adjust me!" default-value="75"
             min="50" max="150">
         <input type="file" id="imgUpload" accept="image/jpeg, image/png, image/jpg">
@@ -27,9 +27,7 @@
     </div>
     <div id="resultDiv">
         <h1 id="starName"></h1>
-        <p id="starInfo">
-            <div id="aladin-lite-div" style="width:600px;height:600px;"></div>
-        </p>
+        <div id="aladin-lite-div" style="width:600px;height:600px;"></div>
     </div>
 
     <script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js"
@@ -49,7 +47,7 @@
 
         var slider = document.getElementById("brightness");
         slider.addEventListener("change", (event) => {
-            indicataor.innerHTML = "Brightness: " + slider.value;
+            indicataor.innerHTML = "Brightness Sensitivity: " + slider.value;
         });
 
     </script>

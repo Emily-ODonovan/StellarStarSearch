@@ -81,7 +81,6 @@ async function findBrightPoints(image, minDistance, previewCanvas, width, height
             }
         }
     }
-
 }
 
 function drawConstallation(previewCanvas, dimensions, points, radius) {
@@ -137,7 +136,7 @@ function drawConstallation(previewCanvas, dimensions, points, radius) {
 
 //tool tips for the stars!
 function addCircleHoverListener(canvas) {
-    const starInfo = document.getElementById('starInfo');
+    const starInfo = document.getElementById('aladin-lite-div');
     const starName = document.getElementById('starName');
     canvas.addEventListener('mousemove', (event) => {
 
