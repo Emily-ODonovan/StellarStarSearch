@@ -40,6 +40,9 @@
         let aladin;
         A.init.then(() => {
             aladin = A.aladin('#aladin-lite-div', { survey: "P/DSS2/color", fov: 60, cooFrame: "galactic" });
+
+            //adds the bright star Catalogue where we got our data from to the overlay
+            aladin.addCatalog(A.catalogFromVizieR('V/50', 'M 45', 5, {onClick: 'showTable'}));
         });
     </script>
 
