@@ -12,9 +12,8 @@
 <body>
     <h1>Upload your image!</h1>
     <form onsubmit="loadFromForm()" id="input">
-        <label for="brightness">I'm the brightness detection slider! If not enough or too many stars show up adjust
-            me!</label>
-        <p id="brightIndicator">Brightness Sensitivity: 75</p>
+        <p for="brightness">I'm the brightness detection slider! If not enough or too many stars show up adjust me!</p>
+        <label for="brightness" id="brightIndicator">Brightness Sensitivity: 75</label>
         <input type="range" id="brightness" name="If not enough or too many stars show up adjust me!" default-value="75"
             min="50" max="150">
         <input type="file" id="imgUpload" accept="image/jpeg, image/png, image/jpg">
