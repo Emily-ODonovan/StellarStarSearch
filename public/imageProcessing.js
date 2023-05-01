@@ -1,7 +1,6 @@
 let target;
 const brightPoints = [];
-let offsetX;
-let offsetY;
+const starDistance = 15;
 
 async function loadFromForm() {
     document.getElementById("resultDiv").style.display = "block";
@@ -9,7 +8,7 @@ async function loadFromForm() {
     const previewCanvas = document.getElementById("previewCanvas");
     const fileIn = document.getElementById("imgUpload");
     const imgOut = document.getElementById("out");
-    const starDistance = 15;
+
     brightPoints.length = 0;
 
     target = fileIn.files[0];
@@ -26,7 +25,9 @@ async function loadFromForm() {
         drawConstallation(previewCanvas, dimensions, brightPoints, starDistance);
 
         addCircleHoverListener(previewCanvas);
-
+        previewCanvas.addEventListener('click', (event) => {
+            trimFalsePositives(event, previewCanvas);
+        });
         //await response from firebase
         //updateBrightPoints(response);
 
@@ -89,10 +90,6 @@ function drawConstallation(previewCanvas, dimensions, points, radius) {
     previewCanvas.width = dimensions[0];
     previewCanvas.height = dimensions[1];
 
-    //sets the offsets for the hover over function
-    offsetX = previewCanvas.offsetLeft;
-    offsetY = previewCanvas.offsetTop;
-
     //background first
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, dimensions[0], dimensions[1]);
@@ -154,6 +151,24 @@ function addCircleHoverListener(canvas) {
             }
         }
     });
+}
+
+function trimFalsePositives(event, canvas) {
+    const rect = canvas.getBoundingClientRect();
+    const dx = event.clientX - rect.left;
+    const dy = event.clientY - rect.top;
+    for (const dot of brightPoints) {
+
+        if ((dx - dot.x) * (dx - dot.x) + (dy - dot.y) * (dy - dot.y) < dot.rXr) {
+            const index = brightPoints.indexOf(dot);
+            if (index > -1) {
+                brightPoints.splice(index, 1);
+                drawConstallation(canvas, [canvas.width, canvas.height], brightPoints, starDistance)
+            }
+            return;
+        }
+    }
+
 }
 
 //mutates the bright points array to include the star distance squared and name
