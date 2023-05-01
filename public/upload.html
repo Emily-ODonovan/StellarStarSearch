@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stellar Star Search</title>
     <script defer src="imageProcessing.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -20,9 +21,9 @@
         <input type="submit" value="Upload">
     </form>
     <p id="test"></p>
-    <div id="preview">
-        <img id="out" class="preview">
-        <img id="canvas" class="preview">
+    <div id="previewDiv">
+        <img id="out" class="previewImg">
+        <canvas id="previewCanvas" class="preview" width="200" height="100"></canvas>
     </div>
 
     <script>
