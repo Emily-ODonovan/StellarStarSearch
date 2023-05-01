@@ -31,18 +31,18 @@
     <div id="resultDiv">
         <h1 id="starName"></h1>
         <p id="starInfo"></p>
-        <div id="aladin-lite-div" style="width:600px;height:600px;"></div>
+        <input type="button" value="trim" id="trim">
     </div>
 
-    <script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js"
-        charset="utf-8"></script>
+    <div id='aladin-lite-div' style='width: 500px; height: 500px;'></div>
+    <script src='https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js' charset='utf-8'></script>
+
     <script type="text/javascript">
         let aladin;
         A.init.then(() => {
-            aladin = A.aladin('#aladin-lite-div', { survey: "P/DSS2/color", fov: 60, cooFrame: "galactic" });
+            aladin = A.aladin('#aladin-lite-div', { target: 'M 45', fov: 5, cooFrame: 'galactic' });
 
-            //adds the bright star Catalogue where we got our data from to the overlay
-            aladin.addCatalog(A.catalogFromVizieR('V/50', 'M 45', 5, {onClick: 'showTable'}));
+            aladin.addCatalog(A.catalogFromVizieR('V/50', 'M 45', 5, { onClick: 'showTable' }));
         });
     </script>
 

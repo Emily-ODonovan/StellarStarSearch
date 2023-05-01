@@ -167,11 +167,11 @@ function mutateBrightPoints(starDistance) {
     });
 }
 
-function updateBrightPoints(response) {
+function BrightPoints(starDistance) {
     brightPoints.forEach(point => {
         point.x = point.x;
         point.y = point.y;
-        point.rXr = point.rXr;
+        point.rXr = starDistance * starDistance;
         point.info = "N/A";
         point.name = "Star";
     });
