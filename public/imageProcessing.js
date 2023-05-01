@@ -2,6 +2,20 @@ let target;
 const brightPoints = [];
 const starDistance = 15;
 
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+import { initializeApp } from 'firebase/app';
+import { getFunctions } from 'firebase/functions';
+
+const app = initializeApp({
+    projectId: '### CLOUD FUNCTIONS PROJECT ID ###',
+    apiKey: '### FIREBASE API KEY ###',
+    authDomain: '### FIREBASE AUTH DOMAIN ###',
+  });
+const functions = getFunctions(app);
+
+
 async function loadFromForm() {
     document.getElementById("resultDiv").style.display = "block";
 
