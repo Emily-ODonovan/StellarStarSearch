@@ -4,6 +4,8 @@ let offsetX;
 let offsetY;
 
 async function loadFromForm() {
+    document.getElementById("resultDiv").style.display = "block";
+
     const previewCanvas = document.getElementById("previewCanvas");
     const fileIn = document.getElementById("imgUpload");
     const imgOut = document.getElementById("out");
@@ -50,9 +52,6 @@ async function findBrightPoints(image, minDistance) {
     const imageData = ctx.getImageData(0, 0, width, height);
     const data = imageData.data;
 
-    // create a lookup table for pixel positions
-    const lookup = new Set();
-
     const givenBrightness = document.getElementById("brightness").value;
 
     // loop through each pixel in the image
@@ -79,33 +78,12 @@ async function findBrightPoints(image, minDistance) {
                 }
             }
 
-            // Double check if the pixel is near any recently added bright points using the lookup table
-            if (!skip) {
-                for (let dy = -minDistance; dy <= minDistance; dy++) {
-                    for (let dx = -minDistance; dx <= minDistance; dx++) {
-                        const xx = x + dx;
-                        const yy = y + dy;
-                        const pos = xx + ',' + yy;
-                        if (lookup.has(pos)) {
-                            skip = true;
-                            break;
-                        }
-                    }
-                    if (skip) {
-                        break;
-                    }
-                }
-            }
-
             // if the pixel is not near any other bright points, add it to the array
             if (!skip) {
                 brightPoints.push({ x, y });
-                lookup.add(x + ',' + y);
             }
         }
     }
-    console.log("Image Processed!");
-    // console.log(JSON.stringify(brightPoints, null, "  "));
 }
 
 function drawConstallation(previewCanvas, dimensions, points, radius) {
@@ -180,13 +158,13 @@ function addCircleHoverListener(canvas) {
     });
 }
 
-//mutates the bright points array to include the star distance and name
+//mutates the bright points array to include the star distance squared and name
 function mutateBrightPoints(starDistance) {
     brightPoints.forEach(point => {
         point.x = point.x;
         point.y = point.y;
         point.rXr = starDistance * starDistance;
-        point.info = "We'll find out";
+        point.info = "N/A";
         point.name = "Star";
     });
 }

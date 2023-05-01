@@ -2,3 +2,24 @@
     max-width: 40%;
     max-height: auto;
 }
+#starName, #starInfo {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: 1px solid black;
+}
+
+#resultDiv {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    display: none;
+}
+
+body {
+    background-color: #f2f2f2;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
