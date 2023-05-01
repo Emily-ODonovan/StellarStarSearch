@@ -166,3 +166,13 @@ function mutateBrightPoints(starDistance) {
         point.name = "Star";
     });
 }
+
+function updateBrightPoints(response) {
+    brightPoints.forEach(point => {
+        point.x = point.x;
+        point.y = point.y;
+        point.rXr = point.rXr;
+        point.info = "N/A";
+        point.name = "Star";
+    });
+}
