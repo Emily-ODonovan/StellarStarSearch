@@ -199,12 +199,9 @@ function mutateBrightPoints(starDistance) {
     });
 }
 
-function BrightPoints(starDistance) {
-    brightPoints.forEach(point => {
-        point.x = point.x;
-        point.y = point.y;
-        point.rXr = starDistance * starDistance;
-        point.info = "N/A";
-        point.name = "Star";
+function parseBrightPoints(jsonQuery) {
+    brightPoints = [];
+    jsonQuery.forEach(point => {
+        brightPoints.push({ x: point.x, y: point.y, rXr: point.rXr, info: point.info, name: point.name });
     });
 }
