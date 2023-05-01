@@ -16,7 +16,7 @@ async function loadFromForm() {
 
     imgOut.src = URL.createObjectURL(target);
     imgOut.onload = function () {
-        findBrightPoints(imgOut, starDistance);
+        findBrightPoints(imgOut, starDistance, previewCanvas);
         console.log(JSON.stringify(brightPoints, null, "  "));
         //send the brightPoints array to FireBase
 
@@ -32,18 +32,16 @@ async function loadFromForm() {
 
 
 //written with the help of chatGPT
-async function findBrightPoints(image, minDistance) {
-
+async function findBrightPoints(image, minDistance , previewCanvas) {
 
     // get the dimensions of the image
     const width = image.width;
     const height = image.height;
 
     // create a canvas element and get its context
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
+    previewCanvas.width = width;
+    previewCanvas.height = height;
+    const ctx = previewCanvas.getContext('2d');
 
     // draw the image onto the canvas
     ctx.drawImage(image, 0, 0);
@@ -71,8 +69,7 @@ async function findBrightPoints(image, minDistance) {
             for (const point of brightPoints) {
                 const dx = x - point.x;
                 const dy = y - point.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < minDistance) {
+                if (Math.sqrt(dx * dx + dy * dy) < minDistance) {
                     skip = true;
                     break;
                 }
