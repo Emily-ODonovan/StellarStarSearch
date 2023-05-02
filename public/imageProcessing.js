@@ -96,9 +96,6 @@ async function findBrightPoints(image, minDistance, previewCanvas, width, height
             }
         }
     }
-    previewCanvas.style.width = "100%";
-    previewCanvas.style.height = "auto";
-    
 }
 
 function drawConstallation(previewCanvas, dimensions, points, radius) {
