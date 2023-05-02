@@ -1,6 +1,7 @@
 #out, #preview, #previewCanvas {
     max-width: 40%;
     max-height: auto;
+    min-height: fit-content;
 }
 #input {
     margin-left: 30%;

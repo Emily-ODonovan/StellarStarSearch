@@ -2,18 +2,16 @@ let target;
 const brightPoints = [];
 const starDistance = 15;
 
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+// import { initializeApp } from "firebase/app";
+// import { getFirestore } from "firebase/firestore";
+// import { getFunctions } from 'firebase/functions';
 
-import { initializeApp } from 'firebase/app';
-import { getFunctions } from 'firebase/functions';
-
-const app = initializeApp({
-    projectId: '### CLOUD FUNCTIONS PROJECT ID ###',
-    apiKey: '### FIREBASE API KEY ###',
-    authDomain: '### FIREBASE AUTH DOMAIN ###',
-  });
-const functions = getFunctions(app);
+// const app = initializeApp({
+//     projectId: '### CLOUD FUNCTIONS PROJECT ID ###',
+//     apiKey: '### FIREBASE API KEY ###',
+//     authDomain: '### FIREBASE AUTH DOMAIN ###',
+//   });
+// const functions = getFunctions(app);
 
 
 async function loadFromForm() {
@@ -61,7 +59,7 @@ async function findBrightPoints(image, minDistance, previewCanvas, width, height
     const ctx = previewCanvas.getContext('2d');
 
     // draw the image onto the canvas
-    ctx.drawImage(image, 0, 0, image.width, image.height);
+    ctx.drawImage(image, 0, 0, width, height);
 
     // get the image data from the canvas
     const imageData = ctx.getImageData(0, 0, width, height);
@@ -98,6 +96,9 @@ async function findBrightPoints(image, minDistance, previewCanvas, width, height
             }
         }
     }
+    previewCanvas.style.width = "100%";
+    previewCanvas.style.height = "auto";
+    
 }
 
 function drawConstallation(previewCanvas, dimensions, points, radius) {
