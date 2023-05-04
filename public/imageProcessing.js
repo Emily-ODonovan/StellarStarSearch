@@ -2,30 +2,6 @@ let target;
 const brightPoints = [];
 const starDistance = 15;
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getFunctions, httpsCallable } from "firebase/functions";
-
-
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBnEKJM1ojmIS2ww0xgGinn4iGcUOx2AOE",
-  authDomain: "localhost:9099",
-  databaseURL: "localhost:8080",
-  projectId: "stellarstarsearch",
-  storageBucket: "stellarstarsearch.appspot.com",
-  messagingSenderId: "112388706321",
-  appId: "1:112388706321:web:3f91a7ff7d264d043aa1b0",
-//   measurementId: "G-SJ3C52P533"
-};
-const app = initializeApp(firebaseConfig);
-const functions = getFunctions(app);
-
-
-
 async function loadFromForm() {
     document.getElementById("resultDiv").style.display = "block";
 
