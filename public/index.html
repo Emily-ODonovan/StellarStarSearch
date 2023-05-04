@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Stellar Star Search</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.21.0/firebase-app-compat.js"></script>
@@ -16,14 +16,17 @@
     <!-- <script defer src="/__/firebase/9.21.0/firebase-storage-compat.js"></script> -->
     <script defer src="/__/firebase/9.21.0/firebase-analytics-compat.js"></script>
     <!-- <script defer src="/__/firebase/9.21.0/firebase-remote-config-compat.js"></script> -->
-    <script defer src="/__/firebase/9.21.0/firebase-performance-compat.js"></script>
+    <!-- <script defer src="/__/firebase/9.21.0/firebase-performance-compat.js"></script> -->
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    
+    <script defer src="imageProcessing.js"></script>
+    <link rel="stylesheet" href="style.css">
 
-    <style media="screen">
+    <!-- <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
       #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
@@ -36,15 +39,62 @@
         body, #message { margin-top: 0; background: white; box-shadow: none; }
         body { border-top: 16px solid #ffa100; }
       }
-    </style>
+    </style> -->
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    
+    <h1>Upload your image!</h1>
+    <form onsubmit="loadFromForm()" id="input">
+        <p for="brightness">I'm the brightness detection slider! If not enough or too many stars show up adjust me!</p>
+        <label for="brightness" id="brightIndicator">Brightness Sensitivity: 75</label>
+        <input type="range" id="brightness" name="If not enough or too many stars show up adjust me!" default-value="75"
+            min="50" max="150">
+        <input type="file" id="imgUpload" accept="image/jpeg, image/png, image/jpg">
+        <input type="submit" value="Convert Image to Constallation!">
+    </form>
+    <p id="test"></p>
+    <div id="previewDiv">
+        <img id="out" class="previewImg">
+        <canvas id="previewCanvas" class="preview" width="500" height="500"></canvas>
     </div>
+    <form onsubmit="queryDB()" id="query">
+        <input type="submit" value="Query The Database!">
+    </form>
+
+    <div id="resultDiv">
+        <h1 id="starName"></h1>
+        <p id="starInfo"></p>
+    </div>
+
+    <div id='aladin-lite-div' style='width: 500px; height: 500px;'></div>
+    <script src='https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js' charset='utf-8'></script>
+
+    <script type="text/javascript">
+        let aladin;
+        A.init.then(() => {
+            aladin = A.aladin('#aladin-lite-div', { target: 'M 45', fov: 5, cooFrame: 'galactic' });
+
+            aladin.addCatalog(A.catalogFromVizieR('V/50', 'M 45', 5, { onClick: 'showTable' }));
+        });
+
+        //on Query response
+        //aladin.gotoRaDec(<ra-in-degrees>, <dec-in-degrees>);
+
+        var form = document.getElementById("input");
+        function handleForm(event) { event.preventDefault(); }
+        form.addEventListener('submit', handleForm);
+
+        const indicataor = document.getElementById("brightIndicator");
+        var slider = document.getElementById("brightness");
+        slider.addEventListener("change", (event) => {
+            indicataor.innerHTML = "Brightness Sensitivity: " + slider.value;
+        });
+
+        let queryForm = document.getElementById("query");
+        function handleQuery(event) { event.preventDefault(); }
+        queryForm.addEventListener('submit', handleForm);
+    </script>
+
     <p id="load">Firebase SDK Loading&hellip;</p>
 
     <script>
