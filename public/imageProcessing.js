@@ -3,12 +3,18 @@ document.addEventListener("DOMContentLoaded", event => {
     console.log(app);
 
     const db = firebase.firestore();
-    firebase.functions().useEmulator("localhost", 5001);
-    fetch("http://127.0.0.1:5001/stellarstarsearch/us-central1/myFunction").then(response => res.json()).then(data => {
-        console.log(data);
-    }).catch(error => {
-        console.error(error);
+    var functions = firebase.functions();
+
+    var jelloWorld = functions.httpsCallable('helloWorld');
+    jelloWorld().then(response => {
+        console.log(response.data);
     });
+
+    // fetch("Access-Control-Allow-Origin: http://127.0.0.1:5001/stellarstarsearch/us-central1/myFunction").then(response => res.json()).then(data => {
+    //     console.log(data);
+    // }).catch(error => {
+    //     console.error(error);
+    // });
 });
 
 let target;
