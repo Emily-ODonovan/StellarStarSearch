@@ -7,3 +7,11 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
   functions.logger.info("Hello logs!", {structuredData: true});
   response.send("Hello from Firebase!");
 });
+
+exports.myFunction = functions.https.onRequest((req, res) => {
+  const data = {
+    foo: 'bar',
+    baz: 123
+  };
+  return res.json(data);
+});
