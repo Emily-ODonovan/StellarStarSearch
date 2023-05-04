@@ -2,16 +2,28 @@ let target;
 const brightPoints = [];
 const starDistance = 15;
 
-// import { initializeApp } from "firebase/app";
-// import { getFirestore } from "firebase/firestore";
-// import { getFunctions } from 'firebase/functions';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFunctions, httpsCallable } from "firebase/functions";
 
-// const app = initializeApp({
-//     projectId: '### CLOUD FUNCTIONS PROJECT ID ###',
-//     apiKey: '### FIREBASE API KEY ###',
-//     authDomain: '### FIREBASE AUTH DOMAIN ###',
-//   });
-// const functions = getFunctions(app);
+
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBnEKJM1ojmIS2ww0xgGinn4iGcUOx2AOE",
+  authDomain: "localhost:9099",
+  databaseURL: "localhost:8080",
+  projectId: "stellarstarsearch",
+  storageBucket: "stellarstarsearch.appspot.com",
+  messagingSenderId: "112388706321",
+  appId: "1:112388706321:web:3f91a7ff7d264d043aa1b0",
+//   measurementId: "G-SJ3C52P533"
+};
+const app = initializeApp(firebaseConfig);
+const functions = getFunctions(app);
+
 
 
 async function loadFromForm() {
@@ -194,12 +206,13 @@ function mutateBrightPoints(starDistance) {
         point.rXr = starDistance * starDistance;
         point.info = "N/A";
         point.name = "Star";
+        point.exclude = false;
     });
 }
 
 function parseBrightPoints(jsonQuery) {
     brightPoints = [];
     jsonQuery.forEach(point => {
-        brightPoints.push({ x: point.x, y: point.y, rXr: point.rXr, info: point.info, name: point.name });
+        brightPoints.push({ x: point.x, y: point.y, rXr: point.rXr, info: point.info, name: point.name, exclude: point.exclude });
     });
 }
