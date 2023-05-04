@@ -2,6 +2,11 @@ let target;
 const brightPoints = [];
 const starDistance = 15;
 
+
+// const db = firebase.firestore();
+// const functions = firebase.functions();
+
+
 async function loadFromForm() {
     document.getElementById("resultDiv").style.display = "block";
 
