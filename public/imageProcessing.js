@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", event => {
+    const app = firebase.app();
+    console.log(app);
+});
+
 let target;
 const brightPoints = [];
 const starDistance = 15;
