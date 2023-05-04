@@ -4,17 +4,13 @@ document.addEventListener("DOMContentLoaded", event => {
 
     const db = firebase.firestore();
     var functions = firebase.functions();
+    
+
 
     var jelloWorld = functions.httpsCallable('helloWorld');
     jelloWorld().then(response => {
-        console.log(response.data);
+        console.log(JSON.stringify(response));
     });
-
-    // fetch("Access-Control-Allow-Origin: http://127.0.0.1:5001/stellarstarsearch/us-central1/myFunction").then(response => res.json()).then(data => {
-    //     console.log(data);
-    // }).catch(error => {
-    //     console.error(error);
-    // });
 });
 
 let target;
