@@ -1,17 +1,17 @@
-document.addEventListener("DOMContentLoaded", event => {
-    const app = firebase.app();
-    console.log(app);
+// document.addEventListener("DOMContentLoaded", event => {
+//     const app = firebase.app();
+//     console.log(app);
 
-    const db = firebase.firestore();
-    var functions = firebase.functions();
-    
+//     const db = firebase.firestore();
+//     var functions = firebase.functions();
 
 
-    var jelloWorld = functions.httpsCallable('helloWorld');
-    jelloWorld().then(response => {
-        console.log(JSON.stringify(response));
-    });
-});
+
+//     var jelloWorld = functions.httpsCallable('helloWorld');
+//     jelloWorld().then(response => {
+//         console.log(JSON.stringify(response));
+//     });
+// });
 
 let target;
 const brightPoints = [];
@@ -53,7 +53,17 @@ async function loadFromForm() {
     };
 }
 async function queryDB() {
+    const app = firebase.app();
+    console.log(app);
+
+    const db = firebase.firestore();
+    var functions = firebase.functions();
+
     //query firebase for the stars
+    var starFinder = functions.httpsCallable('starFinder');
+    starFinder(JSON.stringify(brightPoints)).then(response => {
+        console.log(JSON.stringify(response));
+    });
     //await response from firebase
     //updateBrightPoints(response);
 }
